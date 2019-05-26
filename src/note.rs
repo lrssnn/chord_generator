@@ -7,6 +7,11 @@ pub struct Note {
 }
 
 impl Note {
+
+    pub fn middle_c() -> Note {
+        Note { pitch: 3 }
+    }
+
     pub fn spell(&self, flat: bool) -> String {
         match self.pitch {
             0 => "A",

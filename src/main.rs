@@ -4,6 +4,18 @@ use note::Note;
 fn main() {
 
 
+    for note in circle_of_fifths(false) {
+        println!("{}", note.spell(false));
+    }
+
+    println!("-------------");
+
+    for note in circle_of_fifths(true) {
+        println!("{}", note.spell(true));
+    }
+
+
+    /*
     let mut a = Note { pitch: 0 };
 
     for root in 0..12 {
@@ -14,6 +26,7 @@ fn main() {
         }
         println!();
     }
+    */
 
 
     /*
@@ -40,11 +53,24 @@ fn is_flat_scale(scale: &Vec<Note>) -> bool {
         let note = scale[index];
         let next = scale[index + 1];
 
-        if (note.letter(false) == next.letter(false)) {
+        if note.letter(false) == next.letter(false) {
             return true;
         }
     }
 
     return false;
     
+}
+
+fn circle_of_fifths(flats: bool) -> Vec<Note> {
+    let mut res = vec![Note::middle_c()];
+
+    // Circle of fifths backwards = fourths forwards
+    let interval = if flats { 5 } else { 7 };
+
+    for i in 0..7 {
+        res.push(res[i] + interval);
+    }
+
+    res
 }
